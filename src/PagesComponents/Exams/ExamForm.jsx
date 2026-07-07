@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addExam } from "../../Redux/examSlice";
+import { addExam } from "../../Redux/examSlice.js";
 
 function ExamForm() {
     const [examName, setExamName] = useState("");

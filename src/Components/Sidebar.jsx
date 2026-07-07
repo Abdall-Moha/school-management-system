@@ -11,7 +11,7 @@ import {
 } from "react-icons/hi2";
 import { useDispatch } from "react-redux";
 import {  NavLink } from "react-router-dom";
-import {logout} from '../Redux/authSlice'
+import {logout} from '../Redux/authSlice.js'
 import { useSelector } from "react-redux";
 
 

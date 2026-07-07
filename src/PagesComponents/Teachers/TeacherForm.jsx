@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addTeacher } from "../../Redux/teacherSlice";
+import { addTeacher } from "../../Redux/teacherSlice.js";
 
 function TeacherForm() {
     const [fullName, setFullName] = useState("");

@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addAttendence } from "../../Redux/AttendenceSlice";
+import { addAttendence } from "../../Redux/AttendenceSlice.js";
 
 function AttendenceTable() {
   const studentsData = useSelector((state) => state.students.students);

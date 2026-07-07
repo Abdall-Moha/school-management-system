@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteStudent } from "../../Redux/studentSlice";
+import { deleteStudent } from "../../Redux/studentSlice.js";
 
 function StudentTable() {
   const studentsData = useSelector((state) => state.students.students);

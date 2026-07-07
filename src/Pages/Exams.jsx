@@ -1,7 +1,7 @@
 import React from 'react'
-import Layout from '../Components/Layout'
-import ExamForm from '../PagesComponents/Exams/ExamForm'
-import ExamTable from '../PagesComponents/Exams/ExamTable'
+import Layout from '../Components/Layout.jsx'
+import ExamForm from '../PagesComponents/Exams/ExamForm.jsx'
+import ExamTable from '../PagesComponents/Exams/ExamTable.jsx'
 
 function Exams() {
   return <>

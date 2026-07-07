@@ -1,7 +1,7 @@
 import React from 'react'
-import Layout from '../Components/Layout'
-import TeacherForm from '../PagesComponents/Teachers/TeacherForm'
-import TeacherTable from '../PagesComponents/Teachers/TeacherTable'
+import Layout from '../Components/Layout.jsx'
+import TeacherForm from '../PagesComponents/Teachers/TeacherForm.jsx'
+import TeacherTable from '../PagesComponents/Teachers/TeacherTable.jsx'
 
 
 function Teachers() {
