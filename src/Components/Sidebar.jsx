@@ -6,6 +6,7 @@ import {
   HiOutlineUsers,
   HiOutlineClipboardDocumentList,
   HiOutlineCalendarDays,
+  HiOutlineBanknotes,
   HiOutlineCog6Tooth,
   HiOutlineArrowLeftOnRectangle,
 } from "react-icons/hi2";
@@ -148,6 +149,14 @@ const Sidebar = ({ isOpen, closeSidebar }) => {
           >
             <HiOutlineCalendarDays className="text-lg" />
             <span>Attendence</span>
+          </NavLink>
+
+          <NavLink
+            to="/finance"
+            className={navLinkClass}
+          >
+            <HiOutlineBanknotes className="text-lg" />
+            <span>Finance</span>
           </NavLink>
 
         </div>

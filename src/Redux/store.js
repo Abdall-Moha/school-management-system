@@ -5,6 +5,7 @@ import studentReducer from './studentSlice'
 import teacherReducer from './teacherSlice'
 import examReducer from './examSlice'
 import attendeceReducer from './AttendenceSlice'
+import financeReducer from './financeSlice'
 
 const store = configureStore({
     reducer : {
@@ -14,6 +15,7 @@ const store = configureStore({
         teachers: teacherReducer,
         exams: examReducer,
         attendences: attendeceReducer,
+        finances: financeReducer,
     }
 })
 

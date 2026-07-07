@@ -8,6 +8,7 @@ import Users from './Pages/Users.jsx'
 import Exams from './Pages/Exams.jsx'
 import Attendence from './Pages/Attendence.jsx'
 import Login from './Pages/Login.jsx'
+import Finance from './Pages/Finance.jsx'
 import { useSelector } from 'react-redux'
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
     <Route path='/users' element={<Users />}></Route>
     <Route path='/exams' element={<Exams />}></Route>
     <Route path='/attendence' element={<Attendence />}></Route>
+    <Route path='/finance' element={<Finance />}></Route>
 
   </Routes>
 
