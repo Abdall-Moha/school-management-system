@@ -1,9 +1,10 @@
 import { useState } from "react";
-import Navbar from "./Navbar";
+
 import Sidebar from "./Sidebar";
 import Students from "../Pages/Students";
 import { useSelector } from 'react-redux';
 import { Navigate } from "react-router-dom";
+import Navbar from "./Navbar";
 
 
 const Layout = ({ children }) => {
