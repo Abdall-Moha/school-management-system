@@ -1,8 +1,4 @@
-import {
-  HiBars3,
-  HiOutlineBell,
-  HiOutlineMagnifyingGlass,
-} from "react-icons/hi2";
+import { HiBars3 } from "react-icons/hi2";
 import { useSelector } from "react-redux";
 
 const Navbar = ({ openSidebar }) => {

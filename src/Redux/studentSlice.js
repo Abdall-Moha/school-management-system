@@ -18,9 +18,18 @@ const studentSlice = createSlice({
 
             localStorage.setItem('students', JSON.stringify(state.students))
         },
+        updateStudent(state, action){
+            const index = state.students.findIndex(student => student.id === action.payload.id)
+
+            if(index !== -1){
+                state.students[index] = action.payload
+
+                localStorage.setItem('students', JSON.stringify(state.students))
+            }
+        },
     }
 
 })
 
-export const {addStudent, deleteStudent} = studentSlice.actions;
+export const {addStudent, deleteStudent, updateStudent} = studentSlice.actions;
 export default studentSlice.reducer

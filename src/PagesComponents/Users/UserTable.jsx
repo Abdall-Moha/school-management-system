@@ -1,9 +1,8 @@
-import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteUser } from "../../Redux/userSlice.js";
 
 
-function UserTable() {
+function UserTable({ setEditingUser, setUserForm }) {
   const usersData = useSelector((state) => state.users.users);
 
   const dispatch = useDispatch()
@@ -50,7 +49,14 @@ function UserTable() {
 
                   <td className="px-6 py-4">
                     <div className="flex justify-center gap-3">
-                      <button className="bg-amber-500 hover:bg-amber-600 text-white px-4 py-2 rounded-lg transition">
+                      <button onClick={() => {
+                        setEditingUser(user);
+                        setUserForm({
+                          name: user.name,
+                          username: user.username,
+                          password: user.password,
+                        });
+                      }} className="bg-amber-500 hover:bg-amber-600 text-white px-4 py-2 rounded-lg transition">
                         Edit
                       </button>
 

@@ -1,23 +1,22 @@
-import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addStudent } from "../../Redux/studentSlice.js";
+import { addStudent, updateStudent } from "../../Redux/studentSlice.js";
 
-function StudentForm() {
-    const [fullName, setFullName] = useState("");
-    const [grade, setGrade] = useState("");
-    const [birthDate, setBirthDate] = useState("");
-
-    const studentData = useSelector((state) => state.students.students).length;
+function StudentForm({ editingStudent, setEditingStudent, studentForm, setStudentForm }) {
+    const studentData = useSelector((state) => state.students.students);
 
 
-    const lastId = studentData > 0 ? Math.max(studentData) : 0;
+    const lastId =
+        studentData.length > 0
+            ? Math.max(...studentData.map((student) => student.id))
+            : 0;
     // console.log(lastId)
 
     const dispatch = useDispatch();
 
     const handleInput = () => {
+        const { fullName, grade, birthDate } = studentForm;
         const student = {
-            id: lastId + 1,
+            id: editingStudent ? editingStudent.id : lastId + 1,
             fullName,
             grade,
             birthDate,
@@ -25,11 +24,18 @@ function StudentForm() {
 
         if (fullName.trim() !== "" && grade.trim() !== "" && birthDate.trim() !== "") {
 
-            dispatch(addStudent(student));
+            if (editingStudent) {
+                dispatch(updateStudent(student));
+                setEditingStudent(null);
+            } else {
+                dispatch(addStudent(student));
+            }
 
-            setFullName("");
-            setGrade("");
-            setBirthDate("");
+            setStudentForm({
+                fullName: "",
+                grade: "",
+                birthDate: "",
+            });
         } else {
             alert("please fill the Required inputs")
         }
@@ -41,11 +47,11 @@ function StudentForm() {
             {/* Header */}
             <div className="mb-8">
                 <h2 className="text-3xl font-bold text-gray-800">
-                    Register New Student
+                    {editingStudent ? "Update Student" : "Register New Student"}
                 </h2>
 
                 <p className="text-gray-500 mt-2">
-                    Fill in the student information below.
+                    {editingStudent ? "Edit the student information below." : "Fill in the student information below."}
                 </p>
             </div>
 
@@ -60,8 +66,8 @@ function StudentForm() {
                     <input
                         type="text"
                         placeholder="Enter student's full name"
-                        value={fullName}
-                        onChange={(e) => setFullName(e.target.value)}
+                        value={studentForm.fullName}
+                        onChange={(e) => setStudentForm({ ...studentForm, fullName: e.target.value })}
                         className="w-full px-4 py-3 border border-gray-300 rounded-xl outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
                     />
                 </div>
@@ -73,8 +79,8 @@ function StudentForm() {
                     </label>
 
                     <select
-                        value={grade}
-                        onChange={(e) => setGrade(e.target.value)}
+                        value={studentForm.grade}
+                        onChange={(e) => setStudentForm({ ...studentForm, grade: e.target.value })}
                         className="w-full px-4 py-3 border border-gray-300 rounded-xl outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
                     >
                         <option value="" disabled>
@@ -104,8 +110,8 @@ function StudentForm() {
 
                     <input
                         type="date"
-                        value={birthDate}
-                        onChange={(e) => setBirthDate(e.target.value)}
+                        value={studentForm.birthDate}
+                        onChange={(e) => setStudentForm({ ...studentForm, birthDate: e.target.value })}
                         className="w-full px-4 py-3 border border-gray-300 rounded-xl outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
                     />
                 </div>
@@ -118,7 +124,7 @@ function StudentForm() {
                     onClick={handleInput}
                     className="w-full md:w-auto px-8 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold rounded-xl shadow-lg hover:from-blue-700 hover:to-indigo-700 hover:shadow-xl transition duration-300"
                 >
-                    Register Student
+                    {editingStudent ? "Update Student" : "Register Student"}
                 </button>
             </div>
         </div>

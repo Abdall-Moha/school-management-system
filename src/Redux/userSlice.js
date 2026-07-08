@@ -23,7 +23,7 @@ const userSlice = createSlice({
             const index = state.users.findIndex(user => user.id === action.payload.id)
 
             if(index !== -1){
-                state.user[index] = action.payload
+                state.users[index] = action.payload
 
                 localStorage.setItem('users', JSON.stringify(state.users))
             }

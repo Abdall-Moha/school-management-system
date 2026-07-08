@@ -1,13 +1,7 @@
-import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addExam } from "../../Redux/examSlice.js";
+import { addExam, updateExam } from "../../Redux/examSlice.js";
 
-function ExamForm() {
-    const [examName, setExamName] = useState("");
-    const [subject, setSubject] = useState("");
-    const [grade, setGrade] = useState("");
-    const [examDate, setExamDate] = useState("");
-
+function ExamForm({ editingExam, setEditingExam, examForm, setExamForm }) {
     const examData = useSelector((state) => state.exams.exams);
 
     const lastId =
@@ -18,8 +12,9 @@ function ExamForm() {
     const dispatch = useDispatch();
 
     const handleInput = () => {
+        const { examName, subject, grade, examDate } = examForm;
         const exam = {
-            id: lastId + 1,
+            id: editingExam ? editingExam.id : lastId + 1,
             examName,
             subject,
             grade,
@@ -32,12 +27,19 @@ function ExamForm() {
             grade.trim() !== "" &&
             examDate.trim() !== ""
         ) {
-            dispatch(addExam(exam));
+            if (editingExam) {
+                dispatch(updateExam(exam));
+                setEditingExam(null);
+            } else {
+                dispatch(addExam(exam));
+            }
 
-            setExamName("");
-            setSubject("");
-            setGrade("");
-            setExamDate("");
+            setExamForm({
+                examName: "",
+                subject: "",
+                grade: "",
+                examDate: "",
+            });
         } else {
             alert("Please fill all required fields.");
         }
@@ -48,11 +50,11 @@ function ExamForm() {
             {/* Header */}
             <div className="mb-8">
                 <h2 className="text-3xl font-bold text-gray-800">
-                    Schedule New Exam
+                    {editingExam ? "Update Exam" : "Schedule New Exam"}
                 </h2>
 
                 <p className="text-gray-500 mt-2">
-                    Fill in the exam information below.
+                    {editingExam ? "Edit the exam information below." : "Fill in the exam information below."}
                 </p>
             </div>
 
@@ -67,8 +69,8 @@ function ExamForm() {
                     <input
                         type="text"
                         placeholder="e.g. Midterm Examination"
-                        value={examName}
-                        onChange={(e) => setExamName(e.target.value)}
+                        value={examForm.examName}
+                        onChange={(e) => setExamForm({ ...examForm, examName: e.target.value })}
                         className="w-full px-4 py-3 border border-gray-300 rounded-xl outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
                     />
                 </div>
@@ -80,8 +82,8 @@ function ExamForm() {
                     </label>
 
                     <select
-                        value={subject}
-                        onChange={(e) => setSubject(e.target.value)}
+                        value={examForm.subject}
+                        onChange={(e) => setExamForm({ ...examForm, subject: e.target.value })}
                         className="w-full px-4 py-3 border border-gray-300 rounded-xl outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
                     >
                         <option value="" disabled>
@@ -107,8 +109,8 @@ function ExamForm() {
                     </label>
 
                     <select
-                        value={grade}
-                        onChange={(e) => setGrade(e.target.value)}
+                        value={examForm.grade}
+                        onChange={(e) => setExamForm({ ...examForm, grade: e.target.value })}
                         className="w-full px-4 py-3 border border-gray-300 rounded-xl outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
                     >
                         <option value="" disabled>
@@ -131,8 +133,8 @@ function ExamForm() {
 
                     <input
                         type="date"
-                        value={examDate}
-                        onChange={(e) => setExamDate(e.target.value)}
+                        value={examForm.examDate}
+                        onChange={(e) => setExamForm({ ...examForm, examDate: e.target.value })}
                         className="w-full px-4 py-3 border border-gray-300 rounded-xl outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
                     />
                 </div>
@@ -145,7 +147,7 @@ function ExamForm() {
                     onClick={handleInput}
                     className="w-full md:w-auto px-8 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold rounded-xl shadow-lg hover:from-blue-700 hover:to-indigo-700 hover:shadow-xl hover:scale-105 transition duration-300"
                 >
-                    Schedule Exam
+                    {editingExam ? "Update Exam" : "Schedule Exam"}
                 </button>
             </div>
         </div>

@@ -1,4 +1,3 @@
-import React from 'react'
 import Layout from '../Components/Layout.jsx'
 import AttendenceTable from '../PagesComponents/Attendence/AttendenceTable'
 

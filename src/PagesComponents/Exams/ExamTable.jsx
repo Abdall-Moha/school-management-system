@@ -1,8 +1,7 @@
-import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteExam } from "../../Redux/examSlice.js";
 
-function ExamTable() {
+function ExamTable({ setEditingExam, setExamForm }) {
   const examsData = useSelector((state) => state.exams.exams);
 
   const dispatch = useDispatch();
@@ -59,7 +58,15 @@ function ExamTable() {
 
                   <td className="px-6 py-4">
                     <div className="flex justify-center gap-3">
-                      <button className="bg-amber-500 hover:bg-amber-600 text-white px-4 py-2 rounded-lg transition duration-300">
+                      <button onClick={() => {
+                        setEditingExam(exam);
+                        setExamForm({
+                          examName: exam.examName,
+                          subject: exam.subject,
+                          grade: exam.grade,
+                          examDate: exam.examDate,
+                        });
+                      }} className="bg-amber-500 hover:bg-amber-600 text-white px-4 py-2 rounded-lg transition duration-300">
                         Edit
                       </button>
 

@@ -19,6 +19,15 @@ const ExamSlice = createSlice({
 
             localStorage.setItem('exams', JSON.stringify(state.exams))
         },
+        updateExam(state, action){
+            const index = state.exams.findIndex(exam => exam.id === action.payload.id)
+
+            if(index !== -1){
+                state.exams[index] = action.payload
+
+                localStorage.setItem('exams', JSON.stringify(state.exams))
+            }
+        },
 
         
 
@@ -26,5 +35,5 @@ const ExamSlice = createSlice({
     }
 })
 
-export const {addExam, deleteExam} = ExamSlice.actions
+export const {addExam, deleteExam, updateExam} = ExamSlice.actions
 export default ExamSlice.reducer

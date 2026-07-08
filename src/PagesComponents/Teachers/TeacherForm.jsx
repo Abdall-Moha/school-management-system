@@ -1,25 +1,22 @@
-import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addTeacher } from "../../Redux/teacherSlice.js";
+import { addTeacher, updateTeacher } from "../../Redux/teacherSlice.js";
 
-function TeacherForm() {
-    const [fullName, setFullName] = useState("");
-    const [phone, setPhone] = useState("");
-    const [email, setEmail] = useState("");
-    const [subject, setSubject] = useState("");
-    const [birthDate, setBirthDate] = useState("");
+function TeacherForm({ editingTeacher, setEditingTeacher, teacherForm, setTeacherForm }) {
+    const teacherData = useSelector((state) => state.teachers.teachers);
 
-    const teacherData = useSelector((state) => state.teachers.teachers).length;
-
-    const lastId = teacherData > 0 ? Math.max(teacherData) : 0;
+    const lastId =
+        teacherData.length > 0
+            ? Math.max(...teacherData.map((teacher) => teacher.id))
+            : 0;
 
     const dispatch = useDispatch();
 
 
     
     const handleInput = () => {
+        const { fullName, phone, email, subject, birthDate } = teacherForm;
         const teacher = {
-            id: lastId + 1,
+            id: editingTeacher ? editingTeacher.id : lastId + 1,
             fullName,
             phone,
             email,
@@ -29,13 +26,20 @@ function TeacherForm() {
         
         if (fullName.trim() !== "" && phone.trim() !== "" && email.trim() !== "" && subject.trim() !== "" && birthDate.trim() !== "") {
     
-            dispatch(addTeacher(teacher));
+            if (editingTeacher) {
+                dispatch(updateTeacher(teacher));
+                setEditingTeacher(null);
+            } else {
+                dispatch(addTeacher(teacher));
+            }
     
-            setFullName("");
-            setPhone("");
-            setEmail("");
-            setSubject("");
-            setBirthDate("");
+            setTeacherForm({
+                fullName: "",
+                phone: "",
+                email: "",
+                subject: "",
+                birthDate: "",
+            });
         } else {
             alert("please fill the required inputs")
         }
@@ -47,11 +51,11 @@ function TeacherForm() {
             {/* Header */}
             <div className="mb-8">
                 <h2 className="text-3xl font-bold text-gray-800">
-                    Register New Teacher
+                    {editingTeacher ? "Update Teacher" : "Register New Teacher"}
                 </h2>
 
                 <p className="text-gray-500 mt-2">
-                    Complete the form below to add a new teacher.
+                    {editingTeacher ? "Edit the teacher information below." : "Complete the form below to add a new teacher."}
                 </p>
             </div>
 
@@ -67,8 +71,8 @@ function TeacherForm() {
                     <input
                         type="text"
                         placeholder="Enter teacher's full name"
-                        value={fullName}
-                        onChange={(e) => setFullName(e.target.value)}
+                        value={teacherForm.fullName}
+                        onChange={(e) => setTeacherForm({ ...teacherForm, fullName: e.target.value })}
                         className="w-full px-4 py-3 border border-gray-300 rounded-xl outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
                     />
                 </div>
@@ -82,8 +86,8 @@ function TeacherForm() {
                     <input
                         type="tel"
                         placeholder="Enter phone number"
-                        value={phone}
-                        onChange={(e) => setPhone(e.target.value)}
+                        value={teacherForm.phone}
+                        onChange={(e) => setTeacherForm({ ...teacherForm, phone: e.target.value })}
                         className="w-full px-4 py-3 border border-gray-300 rounded-xl outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
                     />
                 </div>
@@ -97,8 +101,8 @@ function TeacherForm() {
                     <input
                         type="email"
                         placeholder="Enter email address"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
+                        value={teacherForm.email}
+                        onChange={(e) => setTeacherForm({ ...teacherForm, email: e.target.value })}
                         className="w-full px-4 py-3 border border-gray-300 rounded-xl outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
                     />
                 </div>
@@ -110,8 +114,8 @@ function TeacherForm() {
                     </label>
 
                     <select
-                        value={subject}
-                        onChange={(e) => setSubject(e.target.value)}
+                        value={teacherForm.subject}
+                        onChange={(e) => setTeacherForm({ ...teacherForm, subject: e.target.value })}
                         className="w-full px-4 py-3 border border-gray-300 rounded-xl outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
                     >
                         <option value="" disabled>Select Subject</option>
@@ -135,8 +139,8 @@ function TeacherForm() {
 
                     <input
                         type="date"
-                        value={birthDate}
-                        onChange={(e) => setBirthDate(e.target.value)}
+                        value={teacherForm.birthDate}
+                        onChange={(e) => setTeacherForm({ ...teacherForm, birthDate: e.target.value })}
                         className="w-full px-4 py-3 border border-gray-300 rounded-xl outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
                     />
                 </div>
@@ -150,7 +154,7 @@ function TeacherForm() {
                     onClick={handleInput}
                     className="w-full md:w-auto px-8 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold rounded-xl shadow-lg hover:from-blue-700 hover:to-indigo-700 hover:shadow-xl hover:scale-105 transition duration-300"
                 >
-                    Register Teacher
+                    {editingTeacher ? "Update Teacher" : "Register Teacher"}
                 </button>
             </div>
         </div>

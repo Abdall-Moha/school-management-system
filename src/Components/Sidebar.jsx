@@ -7,20 +7,17 @@ import {
   HiOutlineClipboardDocumentList,
   HiOutlineCalendarDays,
   HiOutlineBanknotes,
-  HiOutlineCog6Tooth,
   HiOutlineArrowLeftOnRectangle,
 } from "react-icons/hi2";
 import { useDispatch } from "react-redux";
 import {  NavLink } from "react-router-dom";
 import {logout} from '../Redux/authSlice.js'
-import { useSelector } from "react-redux";
 
 
 
 const Sidebar = ({ isOpen, closeSidebar }) => {
 
   const dispatch = useDispatch()
-  const currentUser = useSelector(state => state.auth.currentUser)
 
   const handleLogOut = () =>{
 

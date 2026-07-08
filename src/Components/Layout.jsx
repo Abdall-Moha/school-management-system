@@ -1,7 +1,6 @@
 import { useState } from "react";
 
 import Sidebar from "./Sidebar.jsx";
-import Students from "../Pages/Students.jsx";
 import { useSelector } from 'react-redux';
 import { Navigate } from "react-router-dom";
 import Navbar from "./Navbar.jsx";

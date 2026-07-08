@@ -17,10 +17,19 @@ const teacherSlice = createSlice({
             state.teachers = state.teachers.filter(teacher => teacher.id !== action.payload)
 
             localStorage.setItem('teachers', JSON.stringify(state.teachers))
+        },
+        updateTeacher(state, action){
+            const index = state.teachers.findIndex(teacher => teacher.id === action.payload.id)
+
+            if(index !== -1){
+                state.teachers[index] = action.payload
+
+                localStorage.setItem('teachers', JSON.stringify(state.teachers))
+            }
         }
     }
 
 })
 
-export const {addTeacher, deleteTeacher} = teacherSlice.actions;
+export const {addTeacher, deleteTeacher, updateTeacher} = teacherSlice.actions;
 export default teacherSlice.reducer

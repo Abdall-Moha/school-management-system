@@ -1,5 +1,3 @@
-import React from 'react'
-import Layout from './Components/Layout.jsx'
 import { Route, Routes } from 'react-router-dom'
 import Dashboard from './Pages/Dashboard.jsx'
 import Students from './Pages/Students.jsx'
@@ -9,7 +7,6 @@ import Exams from './Pages/Exams.jsx'
 import Attendence from './Pages/Attendence.jsx'
 import Login from './Pages/Login.jsx'
 import Finance from './Pages/Finance.jsx'
-import { useSelector } from 'react-redux'
 
 function App() {
   

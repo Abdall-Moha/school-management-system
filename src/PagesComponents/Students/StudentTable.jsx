@@ -1,8 +1,7 @@
-import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteStudent } from "../../Redux/studentSlice.js";
 
-function StudentTable() {
+function StudentTable({ setEditingStudent, setStudentForm }) {
   const studentsData = useSelector((state) => state.students.students);
 
   const dispatch = useDispatch()
@@ -56,7 +55,14 @@ function StudentTable() {
 
                   <td className="px-6 py-4">
                     <div className="flex justify-center gap-3">
-                      <button className="bg-amber-500 hover:bg-amber-600 text-white px-4 py-2 rounded-lg transition duration-300">
+                      <button onClick={() => {
+                        setEditingStudent(student);
+                        setStudentForm({
+                          fullName: student.fullName,
+                          grade: student.grade,
+                          birthDate: student.birthDate,
+                        });
+                      }} className="bg-amber-500 hover:bg-amber-600 text-white px-4 py-2 rounded-lg transition duration-300">
                         Edit
                       </button>
 
